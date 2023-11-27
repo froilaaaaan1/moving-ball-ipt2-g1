@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MovingBall_IPT_Group_1</string>
+    <string name="reset">Reset</string>
+    <string name="up">Up</string>
+    <string name="down">Down</string>
+    <string name="left">Left</string>
+    <string name="right">Right</string>
+    <string name="color">Color</string>
+    <string name="the_ball">The Ball</string>
+</resources>
