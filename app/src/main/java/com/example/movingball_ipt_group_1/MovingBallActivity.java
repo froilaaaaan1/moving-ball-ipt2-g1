@@ -4,19 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+import android.graphics.PorterDuff;
+import android.app.AlertDialog;
 import android.widget.ImageView;
+import android.content.DialogInterface;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class MovingBallActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         final ImageView ball = findViewById(R.id.ball);
         final SeekBar seekBarOpacity = findViewById(R.id.seekbar);
         final Button up = findViewById(R.id.upButton);
@@ -24,7 +26,7 @@ public class MovingBallActivity extends AppCompatActivity {
         final Button left = findViewById(R.id.leftButton);
         final Button right = findViewById(R.id.rightButton);
         final Button reset = findViewById(R.id.resetButton);
-        final Button color = findViewById(R.id.colorButton);
+        final Button colorButton = findViewById(R.id.colorButton);
         final TextView coordinates = findViewById(R.id.coordinatesTextView);
         ConstraintLayout.LayoutParams layoutParameters = (ConstraintLayout.LayoutParams) ball.getLayoutParams();
         coordinates.setText("X: " + ball.getX() + " Y: " + ball.getY());
@@ -77,10 +79,47 @@ public class MovingBallActivity extends AppCompatActivity {
             }
         });
 
-        color.setOnClickListener(v -> {
-            // color changing function goes here
+
+
+        colorButton.setOnClickListener(v -> {
+            final String[] colors = {"Magenta", "Red", "Green", "Blue", "Yellow"};
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Select Color");
+            builder.setItems(colors, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    applyColor(colors[which]);
+                }
+
+                private void applyColor(String selectedColor) {
+                    int colorResId = R.color.defaultColor;
+
+                    switch (selectedColor) {
+                        case "Magenta":
+                            colorResId = R.color.magentaColor;
+                            break;
+                        case "Red":
+                            colorResId = R.color.redColor;
+                            break;
+                        case "Green":
+                            colorResId = R.color.greenColor;
+                            break;
+                        case "Blue":
+                            colorResId = R.color.blueColor;
+                            break;
+                        case "Yellow":
+                            colorResId = R.color.yellowColor;
+                            break;
+                    }
+
+                    int color = getResources().getColor(colorResId); // Get the actual color value
+                    ball.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                }
+            });
+            builder.show();
         });
-
-
     }
+
+
 }
