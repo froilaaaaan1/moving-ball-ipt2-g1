@@ -53,9 +53,10 @@ public class MovingBallActivity extends AppCompatActivity {
         });
 
         reset.setOnClickListener(v -> {
-            layoutParameters.horizontalBias = 0.5f;
-            layoutParameters.verticalBias = 0.5f;
-            ball.setLayoutParams(layoutParameters);
+            float centerX = ball.getWidth() / 0.13f;
+            float centerY = ball.getHeight() / 0.08f;
+            ball.setX(coordinates.getLeft() + centerX);
+            ball.setY(coordinates.getTop() + centerY);
             coordinates.setText("X: " + ball.getX() + " Y: " + ball.getY());
         });
 
